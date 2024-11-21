@@ -1,8 +1,6 @@
-import os
-import sys
-
 import pygame
-from PIL import Image
+
+
 pygame.init()
 pygame.mixer.init()
 

@@ -3,6 +3,7 @@ from pathlib import Path
 
 import cv2
 import importlib
+import importlib.util
 
 from Backend.RankingDAO import RankingsDAO
 from Sprites.fruit import Fruit
