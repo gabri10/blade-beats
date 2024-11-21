@@ -67,7 +67,7 @@ class Login:
 
     def confirm(self):
         if self.name_input.text == '':
-            self.error_message.msg = f"O seguinte erro ocorreu: {"Informe um nickname primeiro!"}"
+            self.error_message.msg = f"O seguinte erro ocorreu: Informe um nickname primeiro"
             self.error = True
         else:
             try:

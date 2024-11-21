@@ -19,6 +19,7 @@ from Controllers.Audio import GeneralSFX
 from Sprites.perfect_overlay import PerfectOverlay
 from Sprites.good_overlay import GoodOverlay
 from Sprites.checkpoint_star import CheckpointStar
+from Sprites.rankings import Rankings
 
 from Sprites.player import Player
 
@@ -171,6 +172,9 @@ class MainGame:
                              right_fruit_sprites=self.game.right_fruits_sprites,
                              asset_loader=self.game.asset_loader,
                              game_panel=self)
+
+        self.ranking = Rankings(self.game.all_sprites, asset_loader=self.game.asset_loader, player=self.player)
+
         self.player_dead_counter = 0
 
         self.spawn_fruits_event_triggers = {}
@@ -180,11 +184,11 @@ class MainGame:
         self.song_dict = self.game.controller.song()
 
     def run(self):
-        GeneralSFX.play_song(self.game.song.song_name, loops=1, start=147)
+        GeneralSFX.play_song(self.game.song.song_name, loops=1, start=0)
 
-        self.populate_spawn_fruits_event_triggers(self.song_dict.keys(), delay=147000)
-        self.populate_increase_speed_event_triggers(self.game.controller.level_increase_timestamps(), delay=147000)
-        self.populate_camera_pulse_event_triggers(self.game.controller.pulse_camera_timestamps(), delay=147000)
+        self.populate_spawn_fruits_event_triggers(self.song_dict.keys(), delay=-1000)
+        self.populate_increase_speed_event_triggers(self.game.controller.level_increase_timestamps(), delay=0)
+        self.populate_camera_pulse_event_triggers(self.game.controller.pulse_camera_timestamps(), delay=0)
 
         music_start_time = pygame.time.get_ticks()
 
