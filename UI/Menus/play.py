@@ -5,6 +5,8 @@ import cv2
 import importlib
 import importlib.util
 
+import pygame.sprite
+
 from Backend.RankingDAO import RankingsDAO
 from Sprites.fruit import Fruit
 from UI.Button import Button
@@ -20,8 +22,8 @@ from Sprites.perfect_overlay import PerfectOverlay
 from Sprites.good_overlay import GoodOverlay
 from Sprites.checkpoint_star import CheckpointStar
 from Sprites.rankings import Rankings
-
 from Sprites.player import Player
+from Sprites.pulsing_ring import PulsingRing
 
 
 class Play:
@@ -67,14 +69,17 @@ class BaseGame:
         self.all_sprites = pygame.sprite.Group()
         self.left_fruits_sprites = pygame.sprite.Group()
         self.right_fruits_sprites = pygame.sprite.Group()
+        self.rings = pygame.sprite.Group()
 
         self.background_frame_counter = 0
         self.background_frame_interval = FPS / self.song.songs_fps
         self.background_video = self.asset_loader.assets[self.song.song_name]
         self.background_last_frame = None
 
-        self.perfect_overlay_left = PerfectOverlay(self.all_sprites, position=(WIDTH / 2 - 240, HEIGHT - 100))
-        self.perfect_overlay_right = PerfectOverlay(self.all_sprites, position=(WIDTH / 2 + 240, HEIGHT - 100))
+        self.perfect_overlay_left = PerfectOverlay(self.all_sprites, position=(WIDTH / 2 - 240, HEIGHT - 100),
+                                                   rings=self.rings)
+        self.perfect_overlay_right = PerfectOverlay(self.all_sprites, position=(WIDTH / 2 + 240, HEIGHT - 100),
+                                                    rings=self.rings)
 
         self.good_overlay_left = GoodOverlay(self.all_sprites, position=(
             (self.perfect_overlay_left.rect.midleft[0] - 50), self.perfect_overlay_left.rect.midleft[1]))
@@ -174,6 +179,12 @@ class MainGame:
                              game_panel=self)
 
         self.ranking = Rankings(self.game.all_sprites, asset_loader=self.game.asset_loader, player=self.player)
+        self.pulsing_ring1 = PulsingRing(self.game.rings, reference_point=self.ranking, max_radius=100,
+                                         pulse_speed=1, thickness=10)
+        self.pulsing_ring2 = PulsingRing(self.game.rings, reference_point=self.ranking, max_radius=200,
+                                         pulse_speed=0.5, thickness=15)
+        self.pulsing_ring3 = PulsingRing(self.game.rings, reference_point=self.ranking, max_radius=60,
+                                         pulse_speed=2, thickness=5)
 
         self.player_dead_counter = 0
 
@@ -186,7 +197,7 @@ class MainGame:
     def run(self):
         GeneralSFX.play_song(self.game.song.song_name, loops=1, start=0)
 
-        self.populate_spawn_fruits_event_triggers(self.song_dict.keys(), delay=-1000)
+        self.populate_spawn_fruits_event_triggers(self.song_dict.keys(), delay=0)
         self.populate_increase_speed_event_triggers(self.game.controller.level_increase_timestamps(), delay=0)
         self.populate_camera_pulse_event_triggers(self.game.controller.pulse_camera_timestamps(), delay=0)
 
@@ -317,6 +328,22 @@ class MainGame:
 
             self.game.draw_background(display_static=not self.game.game_start)
             self.display_player_health(screen=self.game.camera.internal_surface)
+
+            if self.ranking.current_index is not None:
+                self.pulsing_ring1.update()
+
+                self.game.camera.internal_surface.blit(self.pulsing_ring1.image, self.pulsing_ring1.rect)
+
+                if self.ranking.current_index > 3:
+                    self.pulsing_ring2.update()
+                    self.game.camera.internal_surface.blit(self.pulsing_ring2.image, self.pulsing_ring2.rect)
+
+                if self.ranking.current_index > 5:
+                    self.pulsing_ring3.update()
+                    self.game.camera.internal_surface.blit(self.pulsing_ring3.image, self.pulsing_ring3.rect)
+
+
+
             self.game.all_sprites.update(self.game.perfect_overlay_left, self.game.perfect_overlay_right)
             self.game.all_sprites.draw(self.game.camera.internal_surface)
 

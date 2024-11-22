@@ -5,6 +5,7 @@ import pygame
 import Config.window_config as window_config
 from Config.camera import Camera
 from Config.colors import *
+from Sprites.pulsing_ring import PulsingRing
 
 from Sprites.text_feedback import TextFeedback
 from Sprites.flame_trailing import FlameTrailling
@@ -312,6 +313,7 @@ class Player(pygame.sprite.Sprite):
 
         if fruit.health < 1:
             fruit.kill()
+            # PulsingRing(self.all_sprites, reference_point=self.perfect_overlay_left, max_radius=1000, pulse_speed=10, thickness=3, permanent=False)
             if side == 0:
                 self.frames_after_killing_fruit_left = 0
             else:

@@ -6,8 +6,10 @@ class PerfectOverlay(pygame.sprite.Sprite):
     width = 100
     height = 100
 
-    def __init__(self, *groups, position):
+    def __init__(self, *groups, position, rings):
         super().__init__(*groups)
+
+        self.rings = rings
 
         self.image = pygame.Surface((PerfectOverlay.width, PerfectOverlay.height), pygame.SRCALPHA)
         self.rect = self.image.get_rect(center=position)

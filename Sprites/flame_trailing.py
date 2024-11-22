@@ -11,8 +11,6 @@ class FlameTrailling(pygame.sprite.Sprite):
             pygame.transform.flip(image, hit_side == 'Left', attack_axis == 'vertical')
             for image in asset_loader.assets['player']['trailing_slash']
         ]
-        sound = asset_loader.assets['sounds']['flame_trailing'][randint(0, 1)]
-        sound.play()
 
         self.animation_index = 0
 
