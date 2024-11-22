@@ -335,8 +335,8 @@ def song():
         'double': True,
     }
     dict[delay + 104500] = {
-        'is_long': True,
-        'health': FPS * 2,
+        'is_long': False,
+        'health': 1,
         'double': True,
         'checkpoint': True
     }

@@ -52,7 +52,8 @@ class Play:
         main_game.run()
 
         if base_game.go_to == 'Scoreboard':
-            scoreboard = Scoreboard(player=main_game.player, game=base_game, player_info=self.player_info)
+            scoreboard = Scoreboard(player=main_game.player, game=base_game, player_info=self.player_info,
+                                    song_dict=main_game.song_dict)
             scoreboard.run()
 
         return base_game.go_to
@@ -77,9 +78,9 @@ class BaseGame:
         self.background_last_frame = None
 
         self.perfect_overlay_left = PerfectOverlay(self.all_sprites, position=(WIDTH / 2 - 240, HEIGHT - 100),
-                                                   rings=self.rings)
+                                                   all_sprites=self.all_sprites)
         self.perfect_overlay_right = PerfectOverlay(self.all_sprites, position=(WIDTH / 2 + 240, HEIGHT - 100),
-                                                    rings=self.rings)
+                                                    all_sprites=self.all_sprites)
 
         self.good_overlay_left = GoodOverlay(self.all_sprites, position=(
             (self.perfect_overlay_left.rect.midleft[0] - 50), self.perfect_overlay_left.rect.midleft[1]))
@@ -309,7 +310,7 @@ class MainGame:
                                 game_panel=self,
                             )
                 elif event.type in self.increase_speed_event_triggers:
-                    self.current_song_level += 1
+                    self.current_song_level += 0
                     print('Song speed increased')
 
                 elif event.type in self.pulse_camera_event_triggers:
@@ -341,8 +342,6 @@ class MainGame:
                 if self.ranking.current_index > 5:
                     self.pulsing_ring3.update()
                     self.game.camera.internal_surface.blit(self.pulsing_ring3.image, self.pulsing_ring3.rect)
-
-
 
             self.game.all_sprites.update(self.game.perfect_overlay_left, self.game.perfect_overlay_right)
             self.game.all_sprites.draw(self.game.camera.internal_surface)
@@ -467,7 +466,7 @@ class MainGame:
 
 
 class Scoreboard:
-    def __init__(self, player, game, player_info):
+    def __init__(self, player, game, player_info, song_dict):
         self.player = player
         self.game = game
         self.player_info = player_info
@@ -518,6 +517,30 @@ class Scoreboard:
 
         self.go_to = None
 
+        self.song_health = self.get_maximum_health(song_dict)
+        self.maximum_normal_score = self.song_health * 2
+
+        self.number_of_fruits = self.get_number_of_fruits(song_dict)
+
+        self.maximum_score = self.maximum_normal_score + (self.number_of_fruits * 2) * ((self.number_of_fruits * 10) / 100)
+        print(self.maximum_score)
+
+
+    def get_maximum_health(self, dict):
+        health = 0
+        for key, value in dict.items():
+            if value.get('double'):
+                health += value['health']
+            health += value['health']
+        return health
+
+    def get_number_of_fruits(self, dict):
+        fruits = 0
+        for key, value in dict.items():
+            if value.get('double'):
+                fruits += 1
+            fruits += 1
+        return fruits
     def run(self):
         while True:
             CLOCK.tick(FPS)
@@ -573,9 +596,6 @@ class Scoreboard:
         except Exception as e:
             print(e)
         finally:
-            print(f'old score: {old_score}')
-            print(f'games score: {self.player.score}')
-
             if self.player.score > old_score:
                 try:
                     rankingsDAO.add_ranking(self.game.song.song_name, self.player_info[0], self.player.score)

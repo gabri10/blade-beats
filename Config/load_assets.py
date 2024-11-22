@@ -31,6 +31,7 @@ class AssetLoader:
                 "slow_motion": None,
                 "checkpoint": None,
                 "rankings": [],
+                "slam": None,
             },
             "videos": {
                 "Ghost Town": None,
@@ -225,6 +226,9 @@ class AssetLoader:
 
         sound = pygame.mixer.Sound(f'audio/checkpoint.mp3')
         self.assets["sounds"]["checkpoint"] = sound
+
+        sound = pygame.mixer.Sound(f'audio/slam.mp3')
+        self.assets["sounds"]["slam"] = sound
 
     def load_fruit_death_animations(self):
         # Load Sparks 17 death animation

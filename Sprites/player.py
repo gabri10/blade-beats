@@ -243,9 +243,6 @@ class Player(pygame.sprite.Sprite):
 
         if self.is_player_dead: return
 
-        self.perfect_overlay_left.deactivate()
-        self.perfect_overlay_right.deactivate()
-
         perfect_left_fruit_collisions = pygame.sprite.spritecollide(self.perfect_overlay_left,
                                                                     self.left_fruit_sprites, False)
         perfect_right_fruit_collisions = pygame.sprite.spritecollide(self.perfect_overlay_right,
@@ -283,37 +280,47 @@ class Player(pygame.sprite.Sprite):
             cooldown = self.cooldown_right
             frames_after_killing_fruit = self.frames_after_killing_fruit_right
 
-        if is_pressing_side and (cooldown < frames_after_killing_fruit):
-            self.animation_on_side = 'Right' if side == 2 else 'Left'
-
-            if self.last_executed_animation is None:
-                self.attack_1_animation() if random.randint(0, 1) == 0 else self.attack_2_animation()
-            elif self.last_executed_animation == 'Attack 1':
-                self.attack_2_animation()
-            else:
-                self.attack_1_animation()
-
+        if is_pressing_side:
             if side == 0:
-                self.perfect_overlay_left.activate()
-            else:
-                self.perfect_overlay_right.activate()
+                if not self.perfect_overlay_left.is_active:
+                    self.perfect_overlay_left.activate()
 
-            if fruit is not None:
-                self.hit_fruit(fruit, area_hit, side)
             else:
-                self.missed()
+                if not self.perfect_overlay_right.is_active:
+                    self.perfect_overlay_right.activate()
+
+            if cooldown < frames_after_killing_fruit:
+                self.animation_on_side = 'Right' if side == 2 else 'Left'
+
+                if self.last_executed_animation is None:
+                    self.attack_1_animation() if random.randint(0, 1) == 0 else self.attack_2_animation()
+                elif self.last_executed_animation == 'Attack 1':
+                    self.attack_2_animation()
+                else:
+                    self.attack_1_animation()
+
+                if fruit is not None:
+                    self.hit_fruit(fruit, area_hit, side)
+                else:
+                    self.missed()
 
             return pygame.time.get_ticks()
+
+        else:
+            if side == 0:
+                self.perfect_overlay_left.deactivate()
+            else:
+                self.perfect_overlay_right.deactivate()
 
     def hit_fruit(self, fruit, area_hit, side):
         slice_side = 'vertical' if self.is_executing_animation == 'Attack 2' else 'horizontal'
         self.missed_counter = 0
         fruit.hit(slice_side)
-        self.score += (1 + (self.style_meter * 0.1)) * area_hit
+        self.score += area_hit
 
         if fruit.health < 1:
             fruit.kill()
-            # PulsingRing(self.all_sprites, reference_point=self.perfect_overlay_left, max_radius=1000, pulse_speed=10, thickness=3, permanent=False)
+
             if side == 0:
                 self.frames_after_killing_fruit_left = 0
             else:
