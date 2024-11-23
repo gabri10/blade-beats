@@ -91,10 +91,8 @@ class Fruit(pygame.sprite.Sprite):
             sound.play()
             Fruit.slash_audio_counter = 0
 
-        FruitDeath(self.all_sprites, asset_loader=self.asset_loader, sliced_fruit=self, slice_side=slice_side,
-                   index=0, should_downscale=should_downscale)
-        FruitDeath(self.all_sprites, asset_loader=self.asset_loader, sliced_fruit=self, slice_side=slice_side,
-                   index=1, should_downscale=should_downscale)
+        FruitDeath(self.all_sprites, asset_loader=self.asset_loader, sliced_fruit=self, slice_side=slice_side, index=0, should_downscale=should_downscale)
+        FruitDeath(self.all_sprites, asset_loader=self.asset_loader, sliced_fruit=self, slice_side=slice_side, index=1, should_downscale=should_downscale)
 
         if self.health < 1:
             if self.is_last_fruit:

@@ -52,10 +52,10 @@ class Player(pygame.sprite.Sprite):
 
         self.reaction_gap = 50
 
-        self.cooldown_left = 10
+        self.cooldown_left = 7
         self.frames_after_killing_fruit_left = 0
 
-        self.cooldown_right = 10
+        self.cooldown_right = 7
         self.frames_after_killing_fruit_right = 0
 
         self.animation_index = 0

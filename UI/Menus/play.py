@@ -231,11 +231,12 @@ class MainGame:
         self.song_dict = self.game.song_dict
 
     def run(self):
-        GeneralSFX.play_song(self.game.song.song_name, loops=1, start=0)
+        delay = 0
+        GeneralSFX.play_song(self.game.song.song_name, loops=1, start=delay)
 
-        self.populate_spawn_fruits_event_triggers(self.song_dict.keys(), delay=0)
-        self.populate_increase_speed_event_triggers(self.game.controller.level_increase_timestamps(), delay=0)
-        self.populate_camera_pulse_event_triggers(self.game.controller.pulse_camera_timestamps(), delay=0)
+        self.populate_spawn_fruits_event_triggers(self.song_dict.keys(), delay=delay * 1000)
+        self.populate_increase_speed_event_triggers(self.game.controller.level_increase_timestamps(), delay=delay * 1000)
+        self.populate_camera_pulse_event_triggers(self.game.controller.pulse_camera_timestamps(), delay=delay * 1000)
 
         music_start_time = pygame.time.get_ticks()
 
@@ -351,8 +352,7 @@ class MainGame:
                                 game_panel=self,
                             )
                 elif event.type in self.increase_speed_event_triggers:
-                    self.current_song_level += 0
-                    print('Song speed increased')
+                    self.current_song_level += 1
 
                 elif event.type in self.pulse_camera_event_triggers:
                     if not self.should_slow_down:
