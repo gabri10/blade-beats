@@ -53,8 +53,7 @@ class Play:
         main_game.run()
 
         if base_game.go_to == 'Scoreboard':
-            scoreboard = Scoreboard(player=main_game.player, game=base_game, player_info=self.player_info,
-                                    song_dict=main_game.song_dict)
+            scoreboard = Scoreboard(player=main_game.player, game=base_game, player_info=self.player_info)
             scoreboard.run()
 
         return base_game.go_to
@@ -95,6 +94,30 @@ class BaseGame:
         self.go_to = None
 
         self.background_frame_counter = self.background_frame_interval
+
+        self.song_dict = self.controller.song()
+
+        self.song_health = self.get_maximum_health()
+        self.maximum_normal_score = self.song_health * 2
+        self.number_of_fruits = self.get_number_of_fruits()
+        self.maximum_score = self.maximum_normal_score + (self.number_of_fruits * 2) * (
+                (self.number_of_fruits * 10) / 100)
+
+    def get_maximum_health(self):
+        health = 0
+        for key, value in self.song_dict.items():
+            if value.get('double'):
+                health += value['health']
+            health += value['health']
+        return health
+
+    def get_number_of_fruits(self):
+        fruits = 0
+        for key, value in self.song_dict.items():
+            if value.get('double'):
+                fruits += 1
+            fruits += 1
+        return fruits
 
     def draw_background(self, display_static=False):
         # Update the background frame if the counter reaches or exceeds the interval
@@ -191,7 +214,8 @@ class MainGame:
                              asset_loader=self.game.asset_loader,
                              game_panel=self)
 
-        self.ranking = Rankings(self.game.all_sprites, asset_loader=self.game.asset_loader, player=self.player)
+        self.ranking = Rankings(self.game.all_sprites, asset_loader=self.game.asset_loader,
+                                maximum_score=self.game.number_of_fruits * 10 * 0.4, size=1, pos=(WIDTH - 50, 50))
         self.pulsing_ring1 = PulsingRing(self.game.rings, reference_point=self.ranking, max_radius=100,
                                          pulse_speed=1, thickness=10)
         self.pulsing_ring2 = PulsingRing(self.game.rings, reference_point=self.ranking, max_radius=200,
@@ -204,8 +228,7 @@ class MainGame:
         self.spawn_fruits_event_triggers = {}
         self.increase_speed_event_triggers = []
         self.pulse_camera_event_triggers = []
-
-        self.song_dict = self.game.controller.song()
+        self.song_dict = self.game.song_dict
 
     def run(self):
         GeneralSFX.play_song(self.game.song.song_name, loops=1, start=0)
@@ -344,6 +367,8 @@ class MainGame:
                                                             increase_speed_timestamps=self.game.controller.level_increase_timestamps(),
                                                             pulse_camera_timestamps=self.game.controller.pulse_camera_timestamps()
                                                             )
+
+            self.ranking.score = self.player.style_meter
 
             self.game.draw_background(display_static=not self.game.game_start)
             self.display_player_health(screen=self.game.camera.internal_surface)
@@ -484,7 +509,7 @@ class MainGame:
 
 
 class Scoreboard:
-    def __init__(self, player, game, player_info, song_dict):
+    def __init__(self, player, game, player_info):
         self.player = player
         self.game = game
         self.player_info = player_info
@@ -530,36 +555,23 @@ class Scoreboard:
                                  color=self.response['color'],
                                  font_size=40, centered=True)
 
-        self.event_trigger = pygame.event.custom_type()
-        pygame.time.set_timer(self.event_trigger, self.timer_for_final_score + 3000, loops=1)
+        self.event_trigger1 = pygame.event.custom_type()
+        pygame.time.set_timer(self.event_trigger1, self.timer_for_final_score + 3000, loops=1)
+
+        self.event_trigger2 = pygame.event.custom_type()
+        pygame.time.set_timer(self.event_trigger2, self.timer_for_final_score + 1200, loops=1)
 
         self.go_to = None
+        self.ring = pygame.sprite.Group()
 
-        self.song_health = self.get_maximum_health(song_dict)
-        self.maximum_normal_score = self.song_health * 2
+        self.slam_sound = self.game.asset_loader.assets['sounds']['slam']
+        self.ranking = Rankings(self.ring, asset_loader=self.game.asset_loader, maximum_score=self.game.maximum_score,
+                                conditionally_show=False, size=3, pos=(WIDTH, HEIGHT / 6))
+        self.ranking.score = self.player.score
 
-        self.number_of_fruits = self.get_number_of_fruits(song_dict)
-
-        self.maximum_score = self.maximum_normal_score + (self.number_of_fruits * 2) * ((self.number_of_fruits * 10) / 100)
-        print(self.maximum_score)
-
-
-    def get_maximum_health(self, dict):
-        health = 0
-        for key, value in dict.items():
-            if value.get('double'):
-                health += value['health']
-            health += value['health']
-        return health
-
-    def get_number_of_fruits(self, dict):
-        fruits = 0
-        for key, value in dict.items():
-            if value.get('double'):
-                fruits += 1
-            fruits += 1
-        return fruits
     def run(self):
+        GeneralSFX.stop_current()
+        GeneralSFX.play_song(self.game.song.song_name, start=self.game.controller.chorus_timestamp())
         while True:
             CLOCK.tick(FPS)
             elapsed_time = pygame.time.get_ticks() - self.start_time
@@ -576,10 +588,13 @@ class Scoreboard:
                         elif self.restart_button.rect.collidepoint(event.pos):
                             self.restart_button.handle_click()
                             return self.go_to
-                elif event.type == self.event_trigger:
+                elif event.type == self.event_trigger1:
                     sound = self.response['audio']
                     if sound is not None:
                         sound.play()
+                elif event.type == self.event_trigger2:
+                    for _ in range(5):  # toca varias vezes para ampliar
+                        self.slam_sound.play()
 
             self.game.draw_background(display_static=False)
             self.label_text.draw(self.game.camera.internal_surface)
@@ -598,6 +613,10 @@ class Scoreboard:
                     self.go_back_button.draw(self.game.camera.internal_surface)
                     self.restart_button.draw(self.game.camera.internal_surface)
                     self.results_text.draw(self.game.camera.internal_surface)
+
+                    self.ring.update()
+                    self.ring.draw(self.game.camera.internal_surface)
+
                 self.final_points.draw(self.game.camera.internal_surface)
 
             Game.blit_screen(self.game.camera)
