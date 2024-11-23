@@ -1,4 +1,5 @@
 import sys
+from collections import deque
 from pathlib import Path
 
 import cv2
@@ -93,9 +94,16 @@ class BaseGame:
 
         self.go_to = None
 
-    def draw_background(self, display_static=False):
-        if self.background_frame_counter % self.background_frame_interval == 0:
+        self.background_frame_counter = self.background_frame_interval
 
+    def draw_background(self, display_static=False):
+        # Update the background frame if the counter reaches or exceeds the interval
+        if self.background_frame_counter >= self.background_frame_interval:
+
+            # Adjust the counter by subtracting the interval
+            self.background_frame_counter -= self.background_frame_interval
+
+            # Read and process the frame from the video
             ret, frame = self.background_video.read()
 
             if ret:
@@ -108,13 +116,17 @@ class BaseGame:
 
                 self.background_last_frame = frame_surface
             else:
+                # Reset video to loop from the beginning
                 self.background_video.set(cv2.CAP_PROP_POS_FRAMES, 0)
 
+            # Draw the last frame on the camera surface
             self.camera.internal_surface.blit(self.background_last_frame, (0, 0))
 
+        # Only increment counter if display_static is False
         if not display_static:
             self.background_frame_counter += 1.0
         else:
+            # Reset video position if displaying a static background
             self.background_video.set(cv2.CAP_PROP_POS_FRAMES, 0)
 
     def go_back_to_main_menu(self):
@@ -208,8 +220,14 @@ class MainGame:
         fade_alpha = 0
         fade_speed = 255 / (fade_duration / self.games_fps)
 
+        fps_window = deque(maxlen=50)
+
         while self.game.game_start:
             CLOCK.tick(self.games_fps)
+
+            fps_window.append(CLOCK.get_fps())
+            current_fps = (int(sum(fps_window) / len(fps_window)))
+            self.game.background_frame_interval = current_fps / self.game.song.songs_fps
 
             if self.should_slow_down:
                 self.slow_motion_counter += 1

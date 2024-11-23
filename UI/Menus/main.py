@@ -32,10 +32,17 @@ class Main:
                 songs_fps=60,
             ),
             SongCard(
-                position=(50, 320),
+                position=(50, 300),
                 song_name="I Want It That Way",
                 creator="Backstreet Boys",
                 album_image_path="Songs/I Want It That Way/image.jpeg",
+                songs_fps=30,
+            ),
+            SongCard(
+                position=(50, 450),
+                song_name="Numb",
+                creator="Linking Park",
+                album_image_path="Songs/Numb/image.jpeg",
                 songs_fps=30,
             ),
         ]

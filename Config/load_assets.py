@@ -64,6 +64,9 @@ class AssetLoader:
         video = cv2.VideoCapture('Songs/I Want It That Way/background.mp4')
         self.assets["I Want It That Way"] = video
 
+        video = cv2.VideoCapture('Songs/Numb/background.mp4')
+        self.assets["Numb"] = video
+
     def load_logo(self):
         image = pygame.image.load(f'images/logo.png').convert_alpha()
         image = pygame.transform.scale(image, (image.get_width() * 0.5, image.get_height() * 0.5))
