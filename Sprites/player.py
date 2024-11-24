@@ -224,8 +224,11 @@ class Player(pygame.sprite.Sprite):
                 self.last_update_time = current_time
                 self.animation_index += 1
 
-    def update(self, *args, **kwargs):
+    def update(self, current_fps, *args, **kwargs):
         Camera.camera_offset = [0, 0]
+
+        self.cooldown_left = round(current_fps * 0.1)
+        self.cooldown_right = round(current_fps * 0.1)
 
         if self.last_executed_animation != 'Death':
             if self.is_executing_animation == 'Attack 1':

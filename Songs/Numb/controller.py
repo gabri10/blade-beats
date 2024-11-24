@@ -1,6 +1,5 @@
 from random import randint
 
-from Config.window_config import *
 from Sprites.fruit import Fruit
 
 side_chosen = None
@@ -26,11 +25,11 @@ def pulse_camera_timestamps(bpm=110, beats=1000):
 
 
 def level_increase_timestamps():
-    return [delay + 29100, delay + 107300]
+    return [delay + 13000, delay + 122000]
 
 
 def chorus_timestamp():
-    return (delay + 67900 - 100) / 1000
+    return (delay + 104000) / 1000
 
 
 def last_timestamp():
@@ -81,7 +80,7 @@ def song():
 
     dict[get_last_timestamp(dict) + one_beat * 2 + half_beat] = {
         'is_long': True,
-        'health': round(FPS * half_beat / 1000),
+        'health': half_beat / 1000,
         'double': True,
     }
 
@@ -95,6 +94,449 @@ def song():
     dict.update(numb_complement(get_last_timestamp(dict) + one_beat))
     dict.update(numb_complement(get_last_timestamp(dict) + one_beat))
     dict.update(numb_complement(get_last_timestamp(dict) + one_beat))
+
+    dict.update(singer_part_1(get_last_timestamp(dict) + one_beat))
+    dict.update(singer_part_2(get_last_timestamp(dict) + one_beat + one_beat + half_beat))
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+
+    dict.update(singer_part_2(get_last_timestamp(dict) + half_beat, 2))
+
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+
+    dict.update(singer_part_1(get_last_timestamp(dict) + half_beat))
+
+    dict[get_last_timestamp(dict) + one_beat * 2] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict.update(singer_part_3(get_last_timestamp(dict) + one_beat * 2, 2))
+    dict.update(background_singer(get_last_timestamp(dict) + one_beat + half_beat + quarter_beat))
+
+    dict.update(singer_part_1(get_last_timestamp(dict) + one_beat + half_beat))
+    dict.update(singer_part_3(get_last_timestamp(dict) + half_beat))
+    dict.update(background_singer(get_last_timestamp(dict) + one_beat))
+
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': True,
+        'health': half_beat / 1000,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': True,
+        'health': half_beat / 1000,
+        'double': True,
+    }
+
+    dict.update(numb(get_last_timestamp(dict) + one_beat + half_beat))
+    dict.update(numb_complement(get_last_timestamp(dict) + one_beat))
+
+    dict.update(numb(get_last_timestamp(dict) + one_beat + half_beat))
+    dict.update(numb_complement(get_last_timestamp(dict) + one_beat))
+
+    dict.update(numb_complement(get_last_timestamp(dict) + one_beat))
+    dict.update(numb_complement(get_last_timestamp(dict) + one_beat))
+    dict.update(numb_complement(get_last_timestamp(dict) + one_beat))
+    dict.update(numb_complement(get_last_timestamp(dict) + one_beat))
+
+    dict[get_last_timestamp(dict) + one_beat * 2 + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': True,
+        'health': (one_beat + half_beat) / 1000,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat * 3] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': True,
+        'health': (one_beat + half_beat) / 1000,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat * 2] = {
+        'is_long': True,
+        'health': (one_beat) / 1000,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat * 2] = {
+        'is_long': True,
+        'health': (one_beat) / 1000,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat * 2] = {
+        'is_long': True,
+        'health': (one_beat) / 1000,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat + half_beat] = {
+        'is_long': True,
+        'health': (one_beat + half_beat) / 1000,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+
+    dict[get_last_timestamp(dict) + one_beat * 3] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': True,
+        'health': (one_beat * 2 + half_beat) / 1000,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+
+    dict[get_last_timestamp(dict) + one_beat * 3 + half_beat + quarter_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': True,
+        'health': half_beat / 1000,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': True,
+        'health': one_beat * 3 / 1000,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+
+    dict[get_last_timestamp(dict) + one_beat * 4 + half_beat] = {
+        'is_long': True,
+        'health': half_beat / 1000,
+        'double': True,
+    }
+
+    dict.update(numb(get_last_timestamp(dict) + one_beat + half_beat))
+
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': True,
+        'health': half_beat / 1000,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + one_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+
+    dict.update(first_chorus(get_last_timestamp(dict) + one_beat))
+    dict.update(first_chorus(get_last_timestamp(dict) + one_beat * 3 + half_beat))
+
+    dict[get_last_timestamp(dict) + one_beat * 3 + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': False,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
+    dict[get_last_timestamp(dict) + half_beat] = {
+        'is_long': False,
+        'health': 1,
+        'double': True,
+        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+    }
 
     return dict
 
@@ -188,7 +630,7 @@ def singer_part_1(timestamp, variation=1):
 
     dict[get_last_timestamp(dict) + half_beat] = {
         'is_long': True,
-        'health': round(FPS * (half_beat / 1000)),
+        'health': (half_beat / 1000),
         'double': False,
         'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
     }
@@ -243,7 +685,7 @@ def singer_part_2(timestamp, variation=1):
 
     dict[get_last_timestamp(dict) + half_beat] = {
         'is_long': True,
-        'health': round(FPS * half_beat / 1000),
+        'health': half_beat / 1000,
         'double': False,
         'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
     }
@@ -254,11 +696,18 @@ def singer_part_2(timestamp, variation=1):
         'double': False,
         'side_to_spawn': 'Left' if side_chosen == 'Right' else 'Right'
     }
+    if variation == 2:
+        dict[get_last_timestamp(dict) + one_beat] = {
+            'is_long': False,
+            'health': 1,
+            'double': False,
+            'side_to_spawn': 'Left' if side_chosen == 'Right' else 'Right'
+        }
 
     return dict
 
 
-def singer_part_3(timestamp, variatio=1):
+def singer_part_3(timestamp, variation=1):
     global side_chosen
     dict = {}
 
@@ -268,37 +717,70 @@ def singer_part_3(timestamp, variatio=1):
         'double': False,
         'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
     }
-    dict[get_last_timestamp(dict) + half_beat] = {
-        'is_long': False,
-        'health': 1,
-        'double': False,
-        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
-    }
-    dict[get_last_timestamp(dict) + one_beat] = {
-        'is_long': True,
-        'health': round(FPS * half_beat / 1000),
-        'double': False,
-        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
-    }
-    dict[get_last_timestamp(dict) + one_beat] = {
-        'is_long': True,
-        'health': round(FPS * half_beat / 1000),
-        'double': False,
-        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
-    }
-    dict[get_last_timestamp(dict) + one_beat] = {
-        'is_long': False,
-        'health': 1,
-        'double': False,
-        'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
-    }
-    side_chosen = Fruit.sides_to_spawn[randint(0, 1)]
-    dict[get_last_timestamp(dict) + half_beat] = {
-        'is_long': True,
-        'health': round(FPS * one_beat * 5 / 1000),
-        'double': False,
-        'side_to_spawn': side_chosen
-    }
+    if variation == 2:
+        dict[timestamp] = {
+            'is_long': False,
+            'health': 1,
+            'double': False,
+            'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+        }
+        dict[get_last_timestamp(dict) + one_beat] = {
+            'is_long': False,
+            'health': 1,
+            'double': False,
+            'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+        }
+        dict[get_last_timestamp(dict) + one_beat] = {
+            'is_long': False,
+            'health': 1,
+            'double': False,
+            'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+        }
+        dict[get_last_timestamp(dict) + one_beat] = {
+            'is_long': False,
+            'health': 1,
+            'double': False,
+            'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+        }
+        side_chosen = Fruit.sides_to_spawn[randint(0, 1)]
+        dict[get_last_timestamp(dict) + one_beat] = {
+            'is_long': True,
+            'health': one_beat * 5 / 1000,
+            'double': False,
+            'side_to_spawn': side_chosen
+        }
+    else:
+        dict[get_last_timestamp(dict) + half_beat] = {
+            'is_long': False,
+            'health': 1,
+            'double': False,
+            'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+        }
+        dict[get_last_timestamp(dict) + one_beat] = {
+            'is_long': True,
+            'health': half_beat / 1000,
+            'double': False,
+            'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+        }
+        dict[get_last_timestamp(dict) + one_beat] = {
+            'is_long': True,
+            'health': half_beat / 1000,
+            'double': False,
+            'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+        }
+        dict[get_last_timestamp(dict) + one_beat] = {
+            'is_long': False,
+            'health': 1,
+            'double': False,
+            'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
+        }
+        side_chosen = Fruit.sides_to_spawn[randint(0, 1)]
+        dict[get_last_timestamp(dict) + half_beat] = {
+            'is_long': True,
+            'health': one_beat * 5 / 1000,
+            'double': False,
+            'side_to_spawn': side_chosen
+        }
     return dict
 
 
@@ -420,6 +902,7 @@ def numb(timestamp, variation=1):
     }
 
     return dict
+
 
 def numb_complement(timestamp, variation=1):
     dict = {}

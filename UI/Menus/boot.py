@@ -41,7 +41,7 @@ class Boot:
 
             # Check if one second has passed
             elapsed_time = pygame.time.get_ticks() - start_time
-            if elapsed_time > 1000:  # After 1 second
+            if elapsed_time > 0:  # After 1 second
                 # Set the alpha for the image surface
                 faded_image_surface = self.image.copy()
                 faded_image_surface.set_alpha(alpha)

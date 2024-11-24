@@ -195,7 +195,7 @@ class MainGame:
     def __init__(self, game):
         self.game = game
 
-        self.games_fps = FPS
+        self.games_fps = 120
 
         self.current_song_level = 0
 
@@ -273,6 +273,7 @@ class MainGame:
 
                     is_double = fruit_dict['double']
                     is_last_fruit = self.game.controller.last_timestamp() == timestamp
+                    health = round(fruit_dict['health'] * current_fps) if fruit_dict['is_long'] == 1 else 1
 
                     if is_last_fruit:
                         self.slow_motion_activation_index = 2 if is_double else 1
@@ -302,7 +303,7 @@ class MainGame:
                                 (self.game.all_sprites, self.game.left_fruits_sprites),
                                 side_to_spawn='Left',
                                 is_long=fruit_dict['is_long'],
-                                health=fruit_dict['health'],
+                                health=health,
                                 current_level=self.current_song_level,
                                 perfect_overlay_left=self.game.perfect_overlay_left,
                                 perfect_overlay_right=self.game.perfect_overlay_right,
@@ -315,7 +316,7 @@ class MainGame:
                                 (self.game.all_sprites, self.game.right_fruits_sprites),
                                 side_to_spawn='Right',
                                 is_long=fruit_dict['is_long'],
-                                health=fruit_dict['health'],
+                                health=health,
                                 current_level=self.current_song_level,
                                 perfect_overlay_left=self.game.perfect_overlay_left,
                                 perfect_overlay_right=self.game.perfect_overlay_right,
@@ -342,7 +343,7 @@ class MainGame:
                                 (self.game.all_sprites, belong_to_sprite),
                                 side_to_spawn=fruit_dict['side_to_spawn'],
                                 is_long=fruit_dict['is_long'],
-                                health=fruit_dict['health'],
+                                health=health,
                                 current_level=self.current_song_level,
                                 perfect_overlay_left=self.game.perfect_overlay_left,
                                 perfect_overlay_right=self.game.perfect_overlay_right,
@@ -386,7 +387,7 @@ class MainGame:
                     self.pulsing_ring3.update()
                     self.game.camera.internal_surface.blit(self.pulsing_ring3.image, self.pulsing_ring3.rect)
 
-            self.game.all_sprites.update(self.game.perfect_overlay_left, self.game.perfect_overlay_right)
+            self.game.all_sprites.update(current_fps)
             self.game.all_sprites.draw(self.game.camera.internal_surface)
 
             if self.game.game_ended:
@@ -424,7 +425,7 @@ class MainGame:
         self.slow_motion_counter = 0
         self.slow_motion_activation_index = 0
         self.slow_motion_activation_counter = 0
-        self.games_fps = FPS
+        self.games_fps = 120
 
     def populate_spawn_fruits_event_triggers(self, timestamps, delay=0):
         self.spawn_fruits_event_triggers = {}

@@ -108,7 +108,7 @@ def song():
     }
     dict[delay + 88800] = {
         'is_long': True,
-        'health': FPS * 0.35,
+        'health':  0.35,
         'double': False,
         'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)],
     }
@@ -212,7 +212,7 @@ def song():
     }
     dict[delay + 93600] = {
         'is_long': True,
-        'health': FPS * 0.35,
+        'health':  0.35,
         'double': False,
         'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)],
     }
@@ -224,7 +224,7 @@ def song():
     }
     dict[delay + 94800] = {
         'is_long': True,
-        'health': FPS * 0.35,
+        'health':  0.35,
         'double': False,
         'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)],
     }
@@ -267,7 +267,7 @@ def song():
     }
     dict[delay + 98500] = {
         'is_long': True,
-        'health': FPS * 0.35,
+        'health':  0.35,
         'double': True,
     }
     dict[delay + 99100] = {
@@ -326,7 +326,7 @@ def song():
     }
     dict[delay + 103300] = {
         'is_long': True,
-        'health': FPS * 0.5,
+        'health':  0.5,
         'double': True,
     }
     dict[delay + 104200] = {
@@ -396,7 +396,7 @@ def song():
     }
     dict[delay + 148900] = {
         'is_long': True,
-        'health': FPS * 0.45,
+        'health':  0.45,
         'double': True,
     }
     dict[delay + 150100] = {
@@ -499,7 +499,7 @@ def first_chorus(timestamp, variation=1):
     }
     dict[timestamp + 3100] = {
         'is_long': True,
-        'health': FPS * 0.5,
+        'health':  0.5,
         'double': False,
         'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
     }
@@ -525,7 +525,7 @@ def i_want_it_that_way(timestamp, variation=1):
     if variation == 3:
         dict[timestamp] = {
             'is_long': True,
-            'health': FPS * 0.8,
+            'health':  0.8,
             'double': True,
         }
         dict[timestamp + 1200] = {
@@ -542,7 +542,7 @@ def i_want_it_that_way(timestamp, variation=1):
         }
         dict[timestamp + 1800] = {
             'is_long': True,
-            'health': FPS * 0.35,
+            'health':  0.35,
             'double': True,
         }
         dict[timestamp + 2400] = {
@@ -562,13 +562,13 @@ def i_want_it_that_way(timestamp, variation=1):
     else:
         dict[timestamp] = {
             'is_long': True,
-            'health': FPS * 0.45,
+            'health':  0.45,
             'double': False,
             'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
         }
         dict[timestamp + 900] = {
             'is_long': True,
-            'health': FPS * 0.45,
+            'health':  0.45,
             'double': False,
             'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
         }
@@ -581,13 +581,13 @@ def i_want_it_that_way(timestamp, variation=1):
         if variation == 2:
             dict[timestamp + 2400] = {
                 'is_long': True,
-                'health': FPS * 0.5,
+                'health':  0.5,
                 'double': True,
             }
         else:
             dict[timestamp + 2400] = {
                 'is_long': True,
-                'health': FPS * 0.35,
+                'health':  0.35,
                 'double': False,
                 'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
             }
@@ -613,7 +613,7 @@ def tell_me_why(timestamp, variation=1):
     if variation == 3:
         dict[timestamp] = {
             'is_long': True,
-            'health': FPS * 0.8,
+            'health':  0.8,
             'double': False,
             'side_to_spawn': 'Left' if side_chosen != 'Left' else 'Right'
         }
@@ -647,7 +647,7 @@ def tell_me_why(timestamp, variation=1):
             side_chosen = Fruit.sides_to_spawn[randint(0, 1)]
             dict[timestamp + 600] = {
                 'is_long': True,
-                'health': FPS * 4.5,
+                'health':  4.5,
                 'double': False,
                 'side_to_spawn': side_chosen
             }
@@ -676,7 +676,7 @@ def aint_nothing_but(timestamp, variation=1):
     if variation == 4:
         dict[timestamp] = {
             'is_long': True,
-            'health': FPS * 0.5,
+            'health':  0.5,
             'double': False,
             'side_to_spawn': 'Left' if side_chosen != 'Left' else 'Right'
         }
@@ -706,13 +706,13 @@ def aint_nothing_but(timestamp, variation=1):
         }
         dict[timestamp + 1800] = {
             'is_long': True,
-            'health': FPS * 0.8,
+            'health':  0.8,
             'double': False,
             'side_to_spawn': 'Left' if side_chosen != 'Left' else 'Right'
         }
         dict[timestamp + 2700] = {
             'is_long': True,
-            'health': FPS * 0.5,
+            'health':  0.5,
             'double': False,
             'side_to_spawn': 'Left' if side_chosen != 'Left' else 'Right'
         }
@@ -720,7 +720,7 @@ def aint_nothing_but(timestamp, variation=1):
     if variation == 3:
         dict[timestamp] = {
             'is_long': True,
-            'health': FPS * 0.5,
+            'health':  0.5,
             'double': True,
         }
         dict[timestamp + 1500] = {
@@ -742,19 +742,19 @@ def aint_nothing_but(timestamp, variation=1):
         }
         dict[timestamp + 2400] = {
             'is_long': True,
-            'health': FPS * 0.5,
+            'health':  0.5,
             'double': True,
         }
         dict[timestamp + 3300] = {
             'is_long': True,
-            'health': FPS * 0.5,
+            'health':  0.5,
             'double': True,
         }
         pass
     else:
         dict[timestamp] = {
             'is_long': True,
-            'health': FPS * 0.3,
+            'health':  0.3,
             'double': False,
             'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
         }
@@ -779,7 +779,7 @@ def aint_nothing_but(timestamp, variation=1):
         }
         dict[timestamp + 1800] = {
             'is_long': True,
-            'health': FPS * 0.8,
+            'health':  0.8,
             'double': False,
             'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
         }
@@ -793,7 +793,7 @@ def aint_nothing_but(timestamp, variation=1):
         side_chosen = Fruit.sides_to_spawn[randint(0, 1)]
         dict[timestamp + 2700] = {
             'is_long': True,
-            'health': FPS * 0.5,
+            'health':  0.5,
             'double': False,
             'side_to_spawn': side_chosen
         }
@@ -801,7 +801,7 @@ def aint_nothing_but(timestamp, variation=1):
     elif variation == 1:
         dict[timestamp + 2700] = {
             'is_long': True,
-            'health': FPS * 0.5,
+            'health':  0.5,
             'double': False,
             'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
         }
@@ -814,7 +814,7 @@ def i_never_wanna_hear_you_say(timestamp, variation=1):
     if variation == 2:
         dict[timestamp] = {
             'is_long': True,
-            'health': FPS * 0.5,
+            'health':  0.5,
             'double': True,
         }
         dict[timestamp + 1050] = {
@@ -842,7 +842,7 @@ def i_never_wanna_hear_you_say(timestamp, variation=1):
         }
         dict[timestamp + 2400] = {
             'is_long': True,
-            'health': FPS * 0.35,
+            'health':  0.35,
             'double': True,
         }
         dict[timestamp + 3000] = {
@@ -860,7 +860,7 @@ def i_never_wanna_hear_you_say(timestamp, variation=1):
     else:
         dict[timestamp] = {
             'is_long': True,
-            'health': FPS * 0.5,
+            'health':  0.5,
             'double': False,
             'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
         }
@@ -888,7 +888,7 @@ def i_never_wanna_hear_you_say(timestamp, variation=1):
         }
         dict[timestamp + 1800] = {
             'is_long': True,
-            'health': FPS * 0.5,
+            'health':  0.5,
             'double': False,
             'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
         }
@@ -900,7 +900,7 @@ def i_never_wanna_hear_you_say(timestamp, variation=1):
         }
         dict[timestamp + 2700] = {
             'is_long': True,
-            'health': FPS * 0.35,
+            'health':  0.35,
             'double': False,
             'side_to_spawn': Fruit.sides_to_spawn[randint(0, 1)]
         }
