@@ -69,6 +69,5 @@ class Game:
 
         screen.blit(scaled_surface, scaled_rect)
 
-
 if __name__ == '__main__':
     game = Game()
