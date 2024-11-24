@@ -45,6 +45,13 @@ class Main:
                 album_image_path="Songs/Numb/image.jpeg",
                 songs_fps=30,
             ),
+            SongCard(
+                position=(50, 600),
+                song_name="Vagalumes",
+                creator="Pollo",
+                album_image_path="Songs/Vagalumes/image.jpeg",
+                songs_fps=30,
+            ),
         ]
 
         self.frame_interval = 1

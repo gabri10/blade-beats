@@ -487,7 +487,7 @@ def first_chorus(timestamp, variation=1):
     if variation != 3:
         dict[timestamp + 300] = {
             'is_long': True,
-            'health': FPS,
+            'health': 0.6,
             'double': True,
         }
 
